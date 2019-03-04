@@ -4,7 +4,7 @@ metadata:
   name: xxl-job-admin-ha3
   labels:
     app: xxl-job-admin-ha3
-  namespace: kube-irms
+  namespace: candao-zt
 spec:
   replicas: 1 #设置副本数
   selector:
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: xxl-job-admin-ha3
-        image: 10.200.102.120/candao-irms/xxl-job-admin:0.0.4
+        image: registry.can-dao.com/candao-zt/xxl-job-admin:0.0.4
         lifecycle:
           preStop:
             exec:
@@ -34,22 +34,22 @@ spec:
         ports:
         - containerPort: 8012
         volumeMounts:
-        - mountPath: /data/irms-log/xxl-job/
+        - mountPath: /data/candao/xxl-job/
           name: logs
         - mountPath: /etc/localtime
           name: tz-config
-        - mountPath: /opt/resin4/webapps/ROOT/WEB-INF/classes/
-          name: properties-config
+        #- mountPath: /opt/resin4/webapps/ROOT/WEB-INF/classes/
+        #  name: properties-config
       volumes:
       - hostPath:
-          path: /data/irms-log/xxl-job/
+          path: /data/candao/xxl-job/
         name: logs
       - hostPath:
           path: /usr/share/zoneinfo/Asia/Shanghai
         name: tz-config
-      - hostPath:
-          path: /home/irms-properties/xxl-job-admin/
-        name: properties-config
+      #- hostPath:
+      #    path: /home/irms-properties/xxl-job-admin/
+      #  name: properties-config
 ---
 kind: Service
 apiVersion: v1
@@ -57,7 +57,7 @@ metadata:
   name: xxl-job-admin-ha3
   labels:
     name: xxl-job-admin-ha3
-  namespace: kube-irms
+  namespace: candao-zt
 spec:
   type: NodePort
   ports:
@@ -66,4 +66,4 @@ spec:
   selector:
     app: xxl-job-admin-ha3
   externalIPs: 
-    - 10.200.102.131
+    - 192.168.7.13
