@@ -1,4 +1,4 @@
-FROM 10.200.102.222/library/resin4-jdk8:0.0.1
+FROM 10.200.102.221/library/resin4-jdk8:0.0.1
 
 #定义维护人信息
 MAINTAINER jeromeLiu "jeromeliu@can-dao.com"
